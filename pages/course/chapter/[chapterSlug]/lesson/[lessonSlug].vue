@@ -32,6 +32,8 @@ const lesson = computed(() => {
         <a v-if="lesson.downloadUrl" :href="lesson.downloadUrl" class="font-normal text-md text-gray-500">Download Video</a>
       </div>
 
+      <VideoPlayer v-if="lesson.videoId" :video-id="lesson.videoId"/>
+
       <p>{{ lesson.text }}</p>
   </div>
 </template>
