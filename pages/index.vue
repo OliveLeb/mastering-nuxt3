@@ -1,0 +1,3 @@
+<template>
+  Hello Olivier!
+</template>
