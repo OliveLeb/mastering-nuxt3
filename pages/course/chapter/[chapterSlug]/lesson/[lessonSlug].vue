@@ -14,6 +14,14 @@ const lesson = computed(() => {
     (lesson) => lesson.slug === route.params.lessonSlug
   )
 })
+
+const title = computed(() => {
+  return `${lesson.value.title} - ${course.title}`
+})
+
+useHead({
+  title
+})
 </script>
 
 <template>
@@ -27,9 +35,9 @@ const lesson = computed(() => {
       </h2>
 
       <div class="flex space-x-4 mt-2 mb-8">
-        <a v-if="lesson.sourceUrl" :href="lesson.sourceUrl" class="font-normal text-md text-gray-500">Download Source Code</a>
+        <NuxtLink v-if="lesson.sourceUrl" :to="lesson.sourceUrl" class="font-normal text-md text-gray-500">Download Source Code</NuxtLink>
         
-        <a v-if="lesson.downloadUrl" :href="lesson.downloadUrl" class="font-normal text-md text-gray-500">Download Video</a>
+        <NuxtLink v-if="lesson.downloadUrl" :to="lesson.downloadUrl" class="font-normal text-md text-gray-500">Download Video</NuxtLink>
       </div>
 
       <VideoPlayer v-if="lesson.videoId" :video-id="lesson.videoId"/>

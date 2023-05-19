@@ -1,7 +1,7 @@
 <script setup>
   const props = defineProps({
     videoId: {
-      type: [String, Number],
+      type: Number,
       required:true
     }
   })
