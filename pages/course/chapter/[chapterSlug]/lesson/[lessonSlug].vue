@@ -22,6 +22,28 @@ const title = computed(() => {
 useHead({
   title
 })
+
+const progress = useLocalStorage('progress', new Map())
+
+const isLessonComplete = computed(() => {
+  if (!progress.value.has(chapter.value.slug)) {
+    return false
+  }
+
+  if (!progress.value.get(chapter.value.slug)[lesson.value.number - 1]) {
+    return false
+  }
+
+  return progress.value.get(chapter.value.slug)[lesson.value.number - 1]
+})
+
+const toggleComplete = () => {
+  if (!progress.value.has(chapter.value.slug)) {
+    progress.value.set(chapter.value.slug, [])
+  }
+
+  progress.value.get(chapter.value.slug)[lesson.value.number - 1] = !isLessonComplete.value
+}
 </script>
 
 <template>
@@ -43,5 +65,7 @@ useHead({
       <VideoPlayer v-if="lesson.videoId" :video-id="lesson.videoId"/>
 
       <p>{{ lesson.text }}</p>
+
+      <LessonCompleteButton :model-value="isLessonComplete" @update:model-value="toggleComplete"/>
   </div>
 </template>
